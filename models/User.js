@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema({
     email: { type: String, required: true },
     password: { type: String, required: true },
     role: { type: String, enum: ['user', 'admin'], default: 'user' },
-    bookings: [{ type: mongoose.Schema.Types.ObjectId, ref: 'booking' }]
+    bookings: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Booking' }]
 }, { timestamps: true });
 
 userSchema.pre('save', async function () {
