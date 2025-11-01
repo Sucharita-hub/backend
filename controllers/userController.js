@@ -47,7 +47,7 @@ exports.updateUserProfile = async (req, res) => {
     user.email = req.body.email || user.email;
     if (req.body.password) user.password = req.body.password;
     await user.save();
-    res.json({ message: 'Profile updated' });
+    res.json({ message: 'Profile updated' }); 
 };
 
 exports.getUserBookings = async (req, res) => {

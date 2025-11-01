@@ -7,8 +7,13 @@ const screenSchema = new mongoose.Schema({
     layoutInfo: {
         rows: Number,
         cols: Number,
-        seatTypes: Object,//{"A1": "Normal", A2: "Premium"}
+        screenType: String,
+        seatTypes: { type: Map, of: String }//{"A1": "Normal", A2: "Premium"}
     },
+    theater: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Theater'
+    }
 });
 
 module.exports = mongoose.model('Screen', screenSchema);
