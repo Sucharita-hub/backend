@@ -10,14 +10,14 @@ const seatLockMiddleware = async (req, res, next) => {
             return res.status(400).json({ message: "showtime ID and seats are required" });
         }
    // 1. Reads the showtimeid and selectedSeats from request body
-        const showtime = await showtime.findbyId(showtime);
+        const showtime = await Showtime.findbyId(ShowtimeId);
         if (!showtime) {
             return res.status(404).json({ message: "showtime not found" });
         }
         // 2. remove expired locks automatically before checking
+        const now = new Date();
         showtime.lockedSeats = showtime.lockedSeats.filter(
-            (lock) => lock.expiresAt > new Date()
-        );
+            lock => lock.expiresAt > now);
         // 3. checks if any selected seats are already booked
         const alreadybooked = showtime.bookedSeats.filter((seat) =>
             selectedSeats.includes(seat.seatId)
@@ -33,13 +33,11 @@ const seatLockMiddleware = async (req, res, next) => {
             return res.status(409).json({ message: "some seats are already locked", seats: alreadyLocked });
         }
       // 5. locks the selected seats for the logged-in user for 10 min
-        const lockDuration = 10 * 60 * 1000;
-        const now = new Date();
 
         const newLocks = selectedSeats.map((seatId) => ({
             seatId,
             user: userId,
-            expiresAt: new Date(now.getTime() + lockDuration),
+            expiresAt: new Date(Date.now() + 10 * 60 * 1000)
         }));
 
         showtime.lockedSeats.push(...newLocks);

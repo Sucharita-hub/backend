@@ -4,20 +4,22 @@ const bookedSeatSchema = new mongoose.Schema({
     seatId: String,
     seat_row: String,
     seat_number: Number,
-    user: { type: mongoose.Schema.ObjectId, ref: 'User' },
-    bookedAt: Date
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    bookedAt: { type: Date, default: Date.now }
 });
 
 const lockedSeatSchema = new mongoose.Schema({
     seatId: String,
-    user: { type: mongoose.Schema.ObjectId, ref: 'User' },
-    expiresAt: { type: Date, index: {expires: 0} },
+    seat_row: String,
+    seat_number: Number,
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    expiresAt: Date
 });
 
 const showtimeSchema = new mongoose.Schema({
-    theater: { type: mongoose.Schema.ObjectId, ref: 'theater' },
+    theater: { type: mongoose.Schema.Types.ObjectId, ref: 'Theater' , required: true},
     ScreenIndex: Number,
-    movie: { type: mongoose.Schema.ObjectId, ref: 'Movie' },
+    movie: { type: mongoose.Schema.Types.ObjectId, ref: 'Movie', required: true },
     startAt: Date,
     totalSeats: Number,
     bookedSeats: [bookedSeatSchema],

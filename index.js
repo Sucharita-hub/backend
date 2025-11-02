@@ -6,6 +6,7 @@ const userRoutes = require('./routes/userRoutes');
 const movieRoutes = require('./routes/movieRoutes');
 const theaterRoutes = require('./routes/theaterRoutes');
 const screenRoutes = require('./routes/screenRoutes');
+const showtimeRoutes = require('./routes/showtimeRoutes');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -18,6 +19,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/movies', movieRoutes);
 app.use('/api/theater', theaterRoutes);
 app.use('/api/screen', screenRoutes);
+app.use('/api/showtime', showtimeRoutes);
 
 app.get('/', (req, res) => res.send('API running'));
 // app.post('/test', (req, res) => {
