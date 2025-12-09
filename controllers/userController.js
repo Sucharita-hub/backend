@@ -55,3 +55,6 @@ exports.getUserBookings = async (req, res) => {
     const user = await User.findById(userId).populate({ path: 'bookings', populate: ['movie', 'showtime'] });
     res.json(user.bookings || []);
 };
+
+
+//destructuring in js :- unpacking the values of different variable
